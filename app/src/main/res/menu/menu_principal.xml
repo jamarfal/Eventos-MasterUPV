@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.example.eventos.ActividadPrincipal">
+    <item
+        android:id="@+id/action_temas"
+        android:orderInCategory="100"
+        android:title="Suscripciones"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share_photo"
+        android:orderInCategory="100"
+        android:title="Reto estoy aquí"
+        app:showAsAction="never" />
+</menu>
