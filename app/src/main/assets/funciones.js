@@ -34,3 +34,11 @@ function muestra(mEvento, mWiki) {
     document.getElementById("evento").innerHTML = mEvento;
     document.getElementById("wiki").innerHTML = mWiki;
 }
+
+function volver(){
+   jsInterfazNativa.volver();
+}
+
+function colorFondo(color){
+   document.body.style.backgroundColor = color;
+}

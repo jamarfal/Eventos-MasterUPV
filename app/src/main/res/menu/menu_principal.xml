@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.example.eventos.ActividadPrincipal">
     <item
+        android:id="@+id/action_invitar"
+        android:orderInCategory="50"
+        android:title="Invitar"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_temas"
         android:orderInCategory="100"
         android:title="Suscripciones"

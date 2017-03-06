@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="user-scalable=no,width=device-width"/>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <script src="fotografias.js"></script>
+    <script src="jquery-2.2.4.min.js"></script>
+    <script src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+      $(document).bind('mobileinit',function(){
+         $.mobile.changePage.defaults.changeHash = false;
+         $.mobile.hashListeningEnabled = false;
+         $.mobile.pushStateEnabled = false;
+      });
+
+
+    </script>
+</head>
+<body>
+<div data-role="page">
+    <div data-role="content">
+        <ul id="lista" data-role="listview" data-inset="true"></ul>
+    </div>
+</div>
+</body>

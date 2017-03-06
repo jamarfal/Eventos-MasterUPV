@@ -1,5 +1,6 @@
 package org.example.eventos;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -42,10 +44,13 @@ public class EventosWebActivity extends AppCompatActivity {
     private String evento;
     private String[] permissions;
 
+    final InterfazComunicacion miInterfazJava = new InterfazComunicacion(this);
+
 
     private static final String URL_MOVIL = "file:///android_asset/index.html";
     private static final String URL_WEB = "https://eventos-ff21b.firebaseapp.com/index.html";
 
+    @SuppressLint("JavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +101,8 @@ public class EventosWebActivity extends AppCompatActivity {
                 builder.create().show();
             }
         });
+
+        navegador.addJavascriptInterface(miInterfazJava, "jsInterfazNativa");
     }
 
     @Override
@@ -177,6 +184,9 @@ public class EventosWebActivity extends AppCompatActivity {
                 } else {
                     btnSiguiente.setEnabled(false);
                 }
+                navegador.loadUrl("javascript:muestraEvento(\"" + evento + "\");");
+                navegador.loadUrl("javascript:colorFondo(\"" + EventosAplicacion.colorFondo + "\");");
+
             }
 
             @Override
@@ -318,4 +328,19 @@ public class EventosWebActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public class InterfazComunicacion {
+        Context mContext;
+
+        InterfazComunicacion(Context c) {
+            mContext = c;
+        }
+
+        @JavascriptInterface
+        public void volver() {
+            finish();
+        }
+    }
+
+
 }

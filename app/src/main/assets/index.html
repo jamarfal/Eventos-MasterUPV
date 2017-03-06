@@ -1,26 +1,45 @@
 <!doctype html>
-<html manifest="eventos.manifest">
-    <head>
-        <meta charset="ISO-8859-1">
-        <title>Eventos</title>
-        <link href="estilos.css" rel="stylesheet" type="text/css">
-        <script src="funciones.js"></script>
-    </head>
-    <body>
-        <a href="http://www.androidcurso.com">ANDROID CURSO</a>
-        <p id="imagen">
-            <img src="http://www.androidcurso.com/images/certificado_upv.jpg">
-        </p>
-        <a href="#" onclick="muestraEvento('carnaval');">Carnaval</a>
-        <a href="#" onclick="muestraEvento('fallas');">Fallas</a>
-        <a href="#" onclick="muestraEvento('nochevieja');">Nochevieja</a>
-        <a href="#" onclick="muestraEvento('sanjuan');">
-            Noche de San Juan</a>
-        <a href="#" onclick="muestraEvento('semanasanta');">
-            Semana Santa</a>
-        <a href="#" onclick="alert('Curso Android Avanzado de la UPV.');">
-            Acerca de</a>
+<html>
+<head>
+    <meta name="viewport" content="user-scalable=no,width=device-width"/>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <script src="funciones.js"></script>
+    <script src="jquery-2.2.4.min.js"></script>
+    <script src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+      $(document).bind('mobileinit',function(){
+         $.mobile.changePage.defaults.changeHash = false;
+         $.mobile.hashListeningEnabled = false;
+         $.mobile.pushStateEnabled = false;
+      });
+
+
+
+
+    </script>
+</head>
+<body>
+<div data-role="page" data-theme="b" id="pagina1">
+    <div data-role="header">
+        <a href="#" data-icon="home" onClick="volver();">Inicio</a>
         <h1 id="evento"></h1>
-        <p id="wiki"><p>
-    </body>
+        <a href="#pagina2" data-role="button" data-icon="info"
+    </div>
+    <div data-role="content">
+        <p id="wiki">
+        <p>
+    </div>
+    data-transition="popup">+ Info</a>
+    <div data-role="footer" data-position="fixed">
+        <h1>DEU UPV</h1>
+    </div>
+</div>
+<div data-role="panel" data-theme="b" id="pagina2">
+    <h3>Info</h3>
+    <p>Curso DEU UPV</p>
+    <p>Master UPV</p>
+    <p>Curso Firebase UPV</p>
+    <a href="#pagina2" data-role="button" data-icon="back"
+</div>
+</body>
 </html>

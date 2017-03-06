@@ -113,13 +113,17 @@ public class EventoDetallesActivity extends AppCompatActivity {
         evento = extras.getString("evento");
 
         if (evento == null) {
-            evento = "";
+            android.net.Uri url = getIntent().getData();
+            evento = url.getQueryParameter("evento");
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detalles, menu);
+        if (!EventosAplicacion.acercaDe) {
+            menu.removeItem(R.id.action_acercaDe);
+        }
         return true;
     }
 

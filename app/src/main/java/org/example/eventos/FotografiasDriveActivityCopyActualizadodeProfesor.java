@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class FotografiasDriveActivityCopyActualizadodeProfesor extends AppCompatActivity {
-    public TextView mDisplay;
+    static WebView mDisplay;
     String evento;
 
     static Drive servicio = null;
@@ -69,8 +70,11 @@ public class FotografiasDriveActivityCopyActualizadodeProfesor extends AppCompat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fotografias_drive);
         registerReceiver(mHandleMessageReceiver, new IntentFilter(DISPLAY_MESSAGE_ACTION));
-        mDisplay = (TextView) findViewById(R.id.txtDisplay);
 
+        mDisplay = (WebView) findViewById(R.id.display);
+        mDisplay.getSettings().setJavaScriptEnabled(true);
+        mDisplay.getSettings().setBuiltInZoomControls(false);
+        mDisplay.loadUrl("file:///android_asset/fotografias.html");
 
         Bundle extras = getIntent().getExtras();
         evento = extras.getString("evento");
@@ -344,7 +348,6 @@ public class FotografiasDriveActivityCopyActualizadodeProfesor extends AppCompat
         @Override
         public void onReceive(Context context, Intent intent) {
             String nuevoMensaje = intent.getExtras().getString("mensaje");
-            mDisplay.append(nuevoMensaje + "\n");
         }
     };
 
@@ -364,11 +367,12 @@ public class FotografiasDriveActivityCopyActualizadodeProfesor extends AppCompat
                 public void run() {
                     try {
                         mostrarCarga(FotografiasDriveActivityCopyActualizadodeProfesor.this, "Listando archivos...");
+                        vaciarLista(getBaseContext());
                         FileList ficheros = servicio.files().list()
                                 .setQ("'" + idCarpetaEvento + "' in parents").setFields("*")
                                 .execute();
                         for (File fichero : ficheros.getFiles()) {
-                            mostrarTexto(getBaseContext(), fichero.getOriginalFilename());
+                            addItem(FotografiasDriveActivityCopyActualizadodeProfesor.this, fichero.getOriginalFilename(), fichero.getThumbnailLink());
                         }
                         mostrarMensaje(FotografiasDriveActivityCopyActualizadodeProfesor.this,
                                 "¡Archivos listados!");
@@ -387,6 +391,26 @@ public class FotografiasDriveActivityCopyActualizadodeProfesor extends AppCompat
             });
             t.start();
         }
+    }
+
+    static void addItem(final Context context, final String fichero, final String imagen) {
+        carga.post(new Runnable() {
+            public void run() {
+                mDisplay.loadUrl(
+                        "javascript:add(\"" + fichero + "\",\"" + imagen + "\");");
+            }
+
+        });
+    }
+
+    static void vaciarLista(final Context context) {
+        carga.post(new Runnable() {
+            @Override
+            public void run() {
+                mDisplay.loadUrl("javascript:vaciar()");
+            }
+
+        });
     }
 }
 
