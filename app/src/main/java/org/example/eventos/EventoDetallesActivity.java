@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,10 +95,16 @@ public class EventoDetallesActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 EventoItem currentItem = snapshot.getValue(EventoItem.class);
-                txtEvento.setText(currentItem.getEvento());
-                txtCiudad.setText(currentItem.getCiudad());
-                txtFecha.setText(currentItem.getFecha());
-                new DownloadImageTask((ImageView) imgImagen).execute(currentItem.getImagen());
+                if (currentItem != null) {
+                    txtEvento.setText(currentItem.getEvento());
+                    txtCiudad.setText(currentItem.getCiudad());
+                    txtFecha.setText(currentItem.getFecha());
+                    new DownloadImageTask((ImageView) imgImagen).execute(currentItem.getImagen());
+                } else {
+                    EventosAplicacion.mostrarDialogo(
+                            EventosAplicacion.getAppContext(), "La clave proporcionada no existe");
+                }
+
             }
 
             @Override

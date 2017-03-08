@@ -184,9 +184,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.
         Intent intent;
         switch (id) {
             case R.id.action_temas:
-
                 intent = new Intent(getBaseContext(), TemasActivity.class);
                 startActivity(intent);
+                break;
             case R.id.action_share_photo:
                 intent = new Intent(this, RetoEstoyAquiActivity.class);
                 startActivity(intent);
